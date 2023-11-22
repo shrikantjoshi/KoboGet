@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">KoboGet</string>
+    <string name="pref_key_kobo_url">pref_key_kobo_url</string>
+    <string name="pref_key_kobo_api_token">pref_key_kobo_api_token</string>
+    <string name="pref_key_kobo_excluded_keys">pref_key_kobo_excluded_keys</string>
+    <string name="pref_key_kobo_included_columns">pref_key_kobo_INcluded_columns</string>
+    <string name="kobo_url_default_value">https://kf.kobotoolbox.org</string>
+    <string name="kobo_api_key_default_value">8dfe50e5a1b47aa0534a20fc720fd25ff70c4f91</string>
+    <string name="kobo_excluded_keys_default_value">^formhub/uuid.*,^_notes.*,^_tags.*,^_validation.*,^_geolocation.*</string>
+    <string name="kobo_included_columns_default_value">^_.*id$,.*[pP]hone.*,.*[mM]obile.*,.*[nN]ame.*</string>
+    <string name="prevButtonLabel">Prev</string>
+    <string name="nextButtonLabel">Next</string>
+</resources>

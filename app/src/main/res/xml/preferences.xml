@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <EditTextPreference
+        android:defaultValue="@string/kobo_url_default_value"
+        android:inputType="text"
+        android:key="@string/pref_key_kobo_url"
+        android:singleLine="true"
+        android:summary="Enter Kobo URL"
+        android:title="Kobo URL" />
+
+    <EditTextPreference
+        android:defaultValue="@string/kobo_api_key_default_value"
+        android:inputType="text"
+        android:key="@string/pref_key_kobo_api_token"
+        android:singleLine="true"
+        android:summary="Enter Kobo API Token"
+        android:title="API Token" />
+
+    <EditTextPreference
+        android:defaultValue="@string/kobo_excluded_keys_default_value"
+        android:inputType="text"
+        android:key="@string/pref_key_kobo_excluded_keys"
+        android:singleLine="true"
+        android:summary="Enter Kobo columns to be excluded from showing in the results table"
+        android:title="Excluded columns from results table" />
+
+    <EditTextPreference
+        android:defaultValue="@string/kobo_included_columns_default_value"
+        android:inputType="text"
+        android:key="@string/pref_key_kobo_included_columns"
+        android:singleLine="true"
+        android:summary="Enter Kobo columns to be included in the search dropdown"
+        android:title="Included columns for search" />
+
+</PreferenceScreen>
