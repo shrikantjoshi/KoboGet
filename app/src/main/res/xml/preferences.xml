@@ -33,4 +33,12 @@
         android:summary="Enter Kobo columns to be included in the search dropdown"
         android:title="Included columns for search" />
 
+    <EditTextPreference
+        android:defaultValue="@string/kobo_search_columns_default_value"
+        android:inputType="text"
+        android:key="@string/pref_key_kobo_search_columns"
+        android:singleLine="true"
+        android:summary="Enter Kobo columns to be shown in the all projects search"
+        android:title="Columns for search" />
+
 </PreferenceScreen>

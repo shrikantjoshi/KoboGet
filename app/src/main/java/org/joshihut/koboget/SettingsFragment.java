@@ -81,5 +81,20 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 }
             });
         }
+
+        EditTextPreference koboSearchColumnsPref = findPreference(getString(R.string.pref_key_kobo_search_columns));
+        if (koboSearchColumnsPref != null) {
+            koboSearchColumnsPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    // Save the new value to SharedPreferences
+                    Log.d("Main", "onPreferenceChange-pref_key_kobo_search_columns: " + newValue.toString());
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString(getString(R.string.pref_key_kobo_search_columns), newValue.toString());
+                    editor.commit();
+                    return true;
+                }
+            });
+        }
     }
 }

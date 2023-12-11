@@ -48,6 +48,7 @@ import java.util.stream.Collectors;
 
 public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_SETTINGS_ACTIVITY = 0;
+    private static final int REQUEST_CODE_SEARCH_PROJECTS_ACTIVITY = 1;
     private EditText textField;
     private CheckBox regexField;
     private CheckBox ignoreCaseField;
@@ -61,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private int currentPage = 0;
 
-    private Map<String, String> projectMap = new HashMap();
     private List<String> columns = new ArrayList<>();
     private String selectedColumn;
 
@@ -135,6 +135,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        tableLayout = findViewById(R.id.table_layout);
+
         paginationView = findViewById(R.id.paginationView);
         prevButton = findViewById(R.id.prevButton);
         nextButton = findViewById(R.id.nextButton);
@@ -194,6 +196,10 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
             startActivityForResult(intent, REQUEST_CODE_SETTINGS_ACTIVITY);
             return true;
+        } else if (id == R.id.searchProjects) {
+            Intent intent = new Intent(MainActivity.this, SearchProjectsActivity.class);
+            startActivityForResult(intent, REQUEST_CODE_SEARCH_PROJECTS_ACTIVITY);
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -214,6 +220,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateProjectSpinnerWithNewData() {
+        Map<String, String> projectMap = ProjectCache.getInstance().getProjectsMap();
         Log.d("Main", "kobo: Projects: " + projectMap.keySet().toString());
         List<String> projects = projectMap.keySet().stream()
                 .map(p -> p.toString())
@@ -253,7 +260,7 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d("Main", "kobo: getAllColumnsForProject selectedProject is : " + projectName);
 
-        String projectUri = projectMap.get(projectName);
+        String projectUri = ProjectCache.getInstance().getProjectsMap().get(projectName);
         Log.d("Main", "kobo: getAllColumnsForProject selectedProjectUri is : " + projectUri);
 
         // Make a REST request to mywebsite.org
@@ -331,6 +338,8 @@ public class MainActivity extends AppCompatActivity {
 
                 Log.d("Main", "kobo: Projects: looping through results");
 
+                Map<String, String> projectMap = new HashMap();
+
                 for (int i = 0; i < projectsData.length(); i++) {
                     try {
                         JSONObject project = projectsData.getJSONObject(i);
@@ -350,6 +359,8 @@ public class MainActivity extends AppCompatActivity {
 
                 projectMap.entrySet().stream().forEach(p ->
                         Log.d("Main", "kobo: Projects found : name=" + p.getKey() + ", uid=" + p.getValue()));
+
+                ProjectCache.getInstance().cacheProjectsMap(projectMap);
 
                 updateProjectSpinnerWithNewData();
                 progressBar.setVisibility(View.GONE);
@@ -387,7 +398,7 @@ public class MainActivity extends AppCompatActivity {
         selectedProjectName = projectListField.getSelectedItem().toString();
 
         projectListField.getSelectedItem().toString();
-        String koboSelectedProjectUri = projectMap.get(selectedProjectName);
+        String koboSelectedProjectUri = ProjectCache.getInstance().getProjectsMap().get(selectedProjectName);
         boolean isRegex = regexField.isChecked();
         boolean isIgnoreCase = ignoreCaseField.isChecked();
 
@@ -435,7 +446,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
                 // Get the TableLayout element from the XML layout file
-                tableLayout = findViewById(R.id.table_layout);
                 tableLayout.removeAllViews();
 
                 try {

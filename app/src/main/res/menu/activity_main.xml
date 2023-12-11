@@ -6,4 +6,9 @@
         android:title="Settings"
         android:icon="@android:drawable/ic_menu_preferences"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/searchProjects"
+        android:title="Search Projects"
+        android:icon="@android:drawable/ic_menu_search"
+        app:showAsAction="always" />
 </menu>
